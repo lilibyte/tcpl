@@ -10,17 +10,17 @@ int main() {
   int c = 0;
 
   // the 96 printable ASCII characters between 32 and 127
-  int wordlens[96] = {0};
+  int freq[96] = {0};
 
   while ((c = getchar()) != '\n')
     // increment if not outside of printable range
     if (!(c > 127 || c < 32))
-      ++wordlens[c-32];
+      ++freq[c-32];
   for (int i = 0; i < 96; ++i)
     // if the char has been given at least once
-    if (wordlens[i]) {
+    if (freq[i]) {
       printf("%c: ", i + 32);
-      for (int j = 0; j < wordlens[i]; ++j)
+      for (int j = 0; j < freq[i]; ++j)
         printf("*");
       printf("\n");
     }
