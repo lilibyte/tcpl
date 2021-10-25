@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 /*
  * Exercise 1-3.
  * Modify the temperature conversion program to print a heading
@@ -9,6 +7,8 @@
  * Write a program to print the corresponding Celsius to Fahrenheit
  * table.
 */
+
+#include <stdio.h>
 
 int main() {
   float fahr, celsius;
