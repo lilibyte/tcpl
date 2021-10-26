@@ -8,20 +8,14 @@
 #include <stdio.h>
 #define MAXLINE 1000
 
-/* reverse:  read a line into arr, return length */
-int reverse(char arr[]) {
+/* getinputline:  read a line into arr, return length */
+int getinputline(char arr[]) {
   int c, len;
   for (len=0; len<MAXLINE-1 && (c=getchar()) !=EOF && c!='\n'; ++len) {
     arr[len] = c;
   }
-  char reversed[len+1];
-  int j = 0;
-  for (int i = len-1; i >= 0; --i) {
-    reversed[j] = arr[i];
-    ++j;
-  }
-  for (int i = 0; i < len; ++i) {
-    arr[i] = reversed[i];
+  while (arr[len-1] == '\t' || arr[len-1] == ' ') {
+    --len;
   }
   if (len && c == '\n') {
     arr[len] = c;
@@ -31,10 +25,38 @@ int reverse(char arr[]) {
   return len;
 }
 
+/* reverse:  reverse character string */
+void reverse(char arr[], int len) {
+  char reversed[len];
+  int newlines = 0;
+  int last = len-1;
+  int first = 0;
+  while (last >= 0) {
+    if (arr[last] != '\n') {
+      reversed[first] = arr[last];
+      ++first;
+    } else {
+      ++newlines;
+    }
+    --last;
+  }
+  while (newlines) {
+    reversed[len - newlines] = '\n';
+    --newlines;
+  }
+  reversed[len] = '\0';
+  first = 0;
+  while ((arr[first] = reversed[first]) != '\0') {
+    ++first;
+  }
+  reversed[0] = '\0';
+}
+
 int main() {
   int len = 0;
   char line[MAXLINE];
-  while ((len = reverse(line)) > 0) {
+  while ((len = getinputline(line)) > 0) {
+    reverse(line, len);
     printf("%s", line);
   }
 }
