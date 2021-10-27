@@ -23,31 +23,33 @@
 */
 
 /*
-   Runs successfully assuming I understand the exercise correctly
-   (second attempt as a result of confusion from exercise 1-21):
+   Runs successfully assuming I understand the exercise correctly:
 
-   echo -e "1\t12\t123\t1234\t12345" | ./chapter_01/1-20-detab
-   1               12              123             1234            12345
+   echo -e "XXXXX\tXXX\tX\tXX\tXXXX\tXXXXX\tXX\tX" | ./chapter_01/1-20-detab
+   XXXXX XXX   X     XX    XXXX  XXXXX XX    X
 */
 
 #include <stdio.h>
 
 #define  MAXLINE  79
-#define  TABSTOP  8
 
 void print_aligned_columns(char input_line[], int column_len) {
   int current_word_len = 0;
   int index = 0;
   while (input_line[index] != '\0') {
     if (input_line[index] == '\t') {
-      for(int i = 0; i < (TABSTOP - current_word_len); ++i) {
+      for(int i = 0; i <= (column_len - current_word_len); ++i) {
         printf(" ");
       }
       current_word_len = 0;
+    } else if (current_word_len >= column_len) {
+      printf("\nerror: incorrect formatting; "
+             "expecting <=%d character columns\n", column_len);
+      break;
     } else {
+      printf("%c", input_line[index]);
       ++current_word_len;
     }
-    printf("%c", input_line[index]);
     ++index;
   }
 }
