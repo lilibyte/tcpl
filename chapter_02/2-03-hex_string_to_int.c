@@ -28,45 +28,18 @@ unsigned long htoi(char s[]) {
   int converted[100];
 
   while ((c = s[i]) != '\0') {
-    if (c == '0' && i == 0) {
-      ++i;
-      continue;
-    } else if ((c == 'x' || c == 'X') && i == 1) {
+    if ((c == '0' && i == 0) || ((c == 'x' || c == 'X') && i == 1)) {
       ++i;
       continue;
     }
-
     if (c >= '0' && c <= '9') {
       c = c - '0';
+    } else if (c >= 'a' && c <= 'f') {
+      c = c - 'a' + 10;
+    } else if (c >= 'A' && c <= 'F') {
+      c = c - 'A' + 10;
     } else {
-      switch (c) {
-        case 'a':
-        case 'A':
-          c = 10;
-          break;
-        case 'b':
-        case 'B':
-          c = 11;
-          break;
-        case 'c':
-        case 'C':
-          c = 12;
-          break;
-        case 'd':
-        case 'D':
-          c = 13;
-          break;
-        case 'e':
-        case 'E':
-          c = 14;
-          break;
-        case 'f':
-        case 'F':
-          c = 15;
-          break;
-        default:
-          return 0;
-      }
+      return 0;
     }
     converted[p] = c;
     ++i;
