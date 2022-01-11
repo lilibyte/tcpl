@@ -1,5 +1,5 @@
 /*
- * Exercise 2-4.
+ * Exercise 2-5.
  *
  * Write the function any(s1, s2), which returns
  * the first location in the string s1 where any
