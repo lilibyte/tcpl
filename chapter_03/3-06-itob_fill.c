@@ -22,14 +22,11 @@ void reverse(char s[]) {
 
 void itoa(int n, char s[], int m) {
   int sign;
-  bool overflow = false;
-  if ((sign = n) < 0) {
-    if (sign == INT_MIN) {
-      overflow = true;
-      n += 1;
-    }
+  bool overflow = n == INT_MIN;
+  if (overflow)
+    ++n;
+  if ((sign = n) < 0)
     n = -n;
-  }
   int i = 0;
   do {
     s[i++] = n % 10 + '0';

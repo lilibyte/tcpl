@@ -9,6 +9,7 @@
 */
 
 #include <limits.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -22,17 +23,14 @@ void reverse(char s[]) {
 
 void itoa(int n, char s[]) {
   int sign;
-  int test = 0;
-  if ((sign = n) < 0) {
-    // The unary minus invokes undefined behavior due to signed integer
-    // overflow when applied to INT_MIN on 2's complement platforms.
-    // https://en.cppreference.com/w/c/language/operator_arithmetic
-    if (sign == INT_MIN) {
-      test = 1;
-      n += 1;
-    }
+  bool overflow = n == INT_MIN;
+  // The unary minus invokes undefined behavior due to signed integer
+  // overflow when applied to INT_MIN on 2's complement platforms.
+  // https://en.cppreference.com/w/c/language/operator_arithmetic
+  if (overflow)
+    ++n;
+  if ((sign = n) < 0)
     n = -n;
-  }
   int i = 0;
   do {
     s[i++] = n % 10 + '0';
@@ -41,7 +39,7 @@ void itoa(int n, char s[]) {
     s[i++] = '-';
   s[i] = '\0';
   // probably not capturing the spirit of the exercise but whatever
-  if (test)
+  if (overflow)
     ++s[0];
   reverse(s);
 }
