@@ -17,7 +17,7 @@ int main() {
 	printf("%s\n", str);
 }
 
-/* revers:  reverse a given string in place */
+/* reverse:  reverse a given string in place */
 void reverse(char str[], int len) {
 	static int i = 0;
 	char tmp = str[len - 1 - i];
