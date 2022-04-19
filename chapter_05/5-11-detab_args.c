@@ -56,6 +56,7 @@ int main(int argc, char **argv) {
 		}
 		else if (c == ' ') {
 			++spaces;
+			printf("_");
 		}
 		else if (c == '\n') {
 			tabpos = 1;
