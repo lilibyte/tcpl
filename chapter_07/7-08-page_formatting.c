@@ -11,7 +11,6 @@
 #include <string.h>
 #include <ctype.h>
 
-#define MAXFILES 10
 #define WRAP 79
 
 int fn2title(char *);
@@ -23,30 +22,27 @@ int main(int argc, char *argv[]) {
 		printf("usage: %s FILE[...]\n", fn);
 		exit(1);
 	}
-	FILE *files[MAXFILES];
-	char *filenames[MAXFILES];
-	int c, f = 0, pageno = 1;
+	int c, pageno = 1;
 
-	while (--argc && f < MAXFILES) {
-		filenames[f] = *argv;
-		files[f] = fopen(*argv, "r");
+	while (--argc) {
+		char *title = *argv;
+		FILE *fp = fopen(*argv, "r");
 		++argv;
-		if (files[f] == NULL) {
-			printf("%s: error: failed to open file %s\n", fn, filenames[f]);
+		if (fp == NULL) {
+			printf("%s: error: failed to open file %s\n", fn, title);
 			exit(1);
 		}
-		int len = fn2title(filenames[f]);
-		printf("%s%*d\n", filenames[f], WRAP - len, pageno);
+		int len = fn2title(title);
+		printf("%s%*d\n", title, WRAP - len, pageno);
 		for (int i = 0; i < WRAP; ++i)
 			putchar('-');
 		printf("\n\n");
-		while ((c = getc(files[f])) != EOF)
+		while ((c = getc(fp)) != EOF)
 			putchar(c);
 		putchar('\n');
 		if (argc - 1)
 			putchar('\n');
 		++pageno;
-		++f;
 	}
 	return 0;
 }
