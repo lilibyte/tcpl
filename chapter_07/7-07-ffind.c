@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
 	char *fn = basename(argv++[0]);
 
 	if (argc < 3) {
-		printf("%s: error: expected at least 3 arguments\n", fn);
+		printf("%s: error: expected at least 2 arguments\n", fn);
 		printf(USAGE, fn);
 		return 1;
 	}
